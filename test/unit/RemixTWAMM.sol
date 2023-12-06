@@ -93,10 +93,10 @@ contract TWAMMTest {
             flags,
             0,
             type(TWAMM).creationCode,
-            abi.encode(address(manager), 10_000)
+            abi.encode(address(manager), 10000)
         );
 
-        hook = new TWAMM{salt: salt}(IPoolManager(address(manager)), 10_000);
+        hook = new TWAMM{salt: salt}(IPoolManager(address(manager)), 10000);
 
         require(
             address(hook) == hookAddress,
@@ -119,27 +119,6 @@ contract TWAMMTest {
 
         token0.approve(address(modifyPositionRouter), 100 ether);
         token1.approve(address(modifyPositionRouter), 100 ether);
-        token0.mint(address(this), 100 ether);
-        token1.mint(address(this), 100 ether);
-        modifyPositionRouter.modifyPosition(
-            poolKey,
-            IPoolManager.ModifyPositionParams(-60, 60, 10 ether),
-            ZERO_BYTES
-        );
-        modifyPositionRouter.modifyPosition(
-            poolKey,
-            IPoolManager.ModifyPositionParams(-120, 120, 10 ether),
-            ZERO_BYTES
-        );
-        modifyPositionRouter.modifyPosition(
-            poolKey,
-            IPoolManager.ModifyPositionParams(
-                TickMath.minUsableTick(60),
-                TickMath.maxUsableTick(60),
-                10 ether
-            ),
-            ZERO_BYTES
-        );
     }
 
     function deployTokens(
